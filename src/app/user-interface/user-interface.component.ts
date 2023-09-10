@@ -1,6 +1,6 @@
 import { AfterViewInit, Component } from '@angular/core';
 import { UserInterfaceService } from '../services/user-interface.service';
-import { ICursorPosition } from '../models/map.interface';
+import { IPoint } from '../models/geometry.interface';
 
 @Component({
   selector: 'app-user-interface',
@@ -8,7 +8,7 @@ import { ICursorPosition } from '../models/map.interface';
   styleUrls: ['./user-interface.component.scss']
 })
 export class UserInterfaceComponent {
-  cursorPosition: ICursorPosition = {X: 0, Y: 0};
+  cursorPosition: IPoint = {X: 0, Y: 0};
   isCursorOnMap = false;
   
   constructor(private userInterfaceService: UserInterfaceService) {}

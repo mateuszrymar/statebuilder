@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ICursorPosition } from '../models/map.interface';
+import { IPoint } from '../models/geometry.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserInterfaceService {
-  cursorPosition: ICursorPosition = {X: 0, Y: 0};
+  cursorPosition: IPoint = {X: 0, Y: 0};
   isCursorOnMap = false;
 
   constructor() { }
 
-  public setCursor(newPosition: ICursorPosition, isOnMap: boolean) {
+  public setCursor(newPosition: IPoint, isOnMap: boolean) {
     this.cursorPosition = newPosition;
     this.isCursorOnMap = isOnMap;
   }
