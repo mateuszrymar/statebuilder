@@ -1,0 +1,11 @@
+<div class="map skew" 
+  [style.--map-size]="mapSizePx" 
+  (mousemove)="checkMap($event)"
+  (mouseenter)="this.isCursorOnMap = true"
+  (mouseleave)="this.isCursorOnMap = false; checkMap($event)"
+  >
+  <div class="tile"></div>
+  <svg id="mySvg skew">
+    <polygon id="myPolygon" [attr.points]="polygonVertices" />
+  </svg>
+</div>

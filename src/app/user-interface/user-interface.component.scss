@@ -1,0 +1,9 @@
+.ui {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  padding: 1em;
+  top: 0;
+  z-index: 100;
+  pointer-events: none;
+}

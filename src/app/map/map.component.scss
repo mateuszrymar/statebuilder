@@ -1,0 +1,31 @@
+.skew {
+  transform: translateX(calc(var(--map-size) * 0.18)) scaleY(50%) rotate(-30deg);
+}
+
+.map {
+  aspect-ratio : 1 / 1;
+  width: var(--map-size);
+  background: url("../../assets/Fjord_001.png");
+  background-size: cover;
+  box-shadow: -10px 20px 20px black;
+}
+
+.tile {
+  position: absolute;
+
+  margin-top: calc(var(--tile-size) * 30);
+  margin-left: calc(var(--tile-size) * 20);
+
+  aspect-ratio : 1 / 1;
+  width: calc(var(--tile-size) - var(--tile-border));
+  border: var(--tile-border) solid black;  
+}
+
+svg {
+  overflow: visible;
+}
+
+polygon {
+  fill: none;
+  outline: 3px solid black;
+}
