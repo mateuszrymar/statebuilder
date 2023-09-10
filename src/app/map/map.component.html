@@ -5,7 +5,7 @@
   (mouseleave)="this.isCursorOnMap = false; checkMap($event)"
   >
   <div class="tile"></div>
-  <svg id="mySvg skew">
-    <polygon id="myPolygon" [attr.points]="polygonVertices" />
+  <svg>
+    <polygon class="map-border" [attr.points]="polygonVertices" />
   </svg>
 </div>

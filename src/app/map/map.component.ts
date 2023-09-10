@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { UserInterfaceService } from '../services/user-interface.service';
-import { ICursorPosition } from '../models/map.interface';
+import { IPoint } from '../models/geometry.interface';
+import { Point } from '../geometry/point';
 
 @Component({
   selector: 'app-map',
@@ -8,7 +9,7 @@ import { ICursorPosition } from '../models/map.interface';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent {
-  cursorPosition: ICursorPosition = {X: 0, Y: 0};
+  cursorPosition = new Point(0, 0);
   isCursorOnMap: boolean = false;
   mapSize: number = 2048;
   mapSizePx = `${this.mapSize}px`;
@@ -26,6 +27,7 @@ export class MapComponent {
   }
 
   calculatePositionOnMap(event: MouseEvent) {
-    this.cursorPosition = {X: event.clientX, Y: event.clientY};
+    this.cursorPosition.X = event.clientX;
+    this.cursorPosition.Y = event.clientY;
   }
 }
