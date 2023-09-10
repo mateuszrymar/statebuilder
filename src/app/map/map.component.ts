@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { UserInterfaceService } from '../services/user-interface.service';
 import { IPoint } from '../models/geometry.interface';
 import { Point } from '../math/point';
+import { Line } from '../math/line';
+import { Vector } from '../math/vector';
 
 @Component({
   selector: 'app-map',
@@ -26,12 +28,31 @@ export class MapComponent {
   }
 
   checkMap(event: MouseEvent) {
+    this.setCursor(event);
     this.calculatePositionOnMap(event);
+
     this.userInterfaceService.setCursor(this.cursorPosition, this.isCursorOnMap);
   }
 
-  calculatePositionOnMap(event: MouseEvent) {
+  setCursor(event: MouseEvent) {
     this.cursorPosition.X = event.clientX;
     this.cursorPosition.Y = event.clientY;
+  }
+
+  calculatePositionOnMap(event: MouseEvent) {
+    // @TODO: To calculate position on map, we need to read points
+    // from real DOM values.
+
+    let lineX = Line.fromPoints(this.tl, this.tr);
+    console.log(lineX);
+    let lineY = Line.fromPoints(this.tl, this.bl);
+
+    // let lineXMoved = lineX.move(Vector.fromPoints(this.tr, this.cursorPosition));
+    let lineYMoved = lineY.move(Vector.fromPoints(this.bl, this.cursorPosition));
+
+    let intersectionPointXAxis = lineYMoved.intersect(lineX);
+    let intersectionY;
+
+    console.log(intersectionPointXAxis);
   }
 }

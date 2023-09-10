@@ -1,4 +1,5 @@
 import { IVector, IPoint } from "../models/geometry.interface";
+import { Point } from "./point";
 
 export class Vector implements IVector {
   X: number = 0;
@@ -47,5 +48,11 @@ export class Vector implements IVector {
   
   vectorAngle(vec2: Vector) {
     return Math.acos(this.dotProduct(vec2) / ((this.length() * Vector.calcLength(vec2))));
-  }  
+  }
+
+  // intersect(vec2: Vector): Point {
+  //   const intersectionX = (this.X + vec2.X) / 2;
+  //   const intersectionY = (this.Y + vec2.Y) / 2;
+  //   return new Point(intersectionX, intersectionY);
+  // }
 }

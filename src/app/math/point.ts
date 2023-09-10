@@ -18,7 +18,7 @@ export class Point implements IPoint {
     return `${this.X}, ${this.Y}`;
   }
 
-  move (vector: Vector) {
+  move(vector: Vector) {
     this.X = this.X + vector.X;
     this.Y = this.Y + vector.Y;
   }
