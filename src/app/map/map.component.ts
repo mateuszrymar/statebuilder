@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserInterfaceService } from '../services/user-interface.service';
 import { IPoint } from '../models/geometry.interface';
-import { Point } from '../geometry/point';
+import { Point } from '../math/point';
 
 @Component({
   selector: 'app-map',
@@ -9,16 +9,20 @@ import { Point } from '../geometry/point';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent {
-  cursorPosition = new Point(0, 0);
-  isCursorOnMap: boolean = false;
   mapSize: number = 2048;
   mapSizePx = `${this.mapSize}px`;
-  polygonVertices = `0,0 ${this.mapSize},0 ${this.mapSize},${this.mapSize} 0,${this.mapSize}`;
+
+  cursorPosition = new Point(0, 0);
+  isCursorOnMap: boolean = false;  
+
+  tl = new Point(0, 0);
+  tr = new Point(this.mapSize, 0);
+  br = new Point(this.mapSize, this.mapSize);
+  bl = new Point(0, this.mapSize);
+
+  polygonVertices = `${this.tl.toString()} ${this.tr.toString()} ${this.br.toString()} ${this.bl.toString()}`;
 
   constructor(private userInterfaceService: UserInterfaceService) {
-  }
-
-  ngAfterViewInit(): void {
   }
 
   checkMap(event: MouseEvent) {
