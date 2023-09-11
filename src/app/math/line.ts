@@ -14,13 +14,6 @@ export class Line {
     return result;
   }
 
-  move(vector: Vector): Line {
-    this.start.move(vector);
-    this.end.move(vector);
-
-    return this;
-  }
-
   intersect(line2: Line): Point {
     let t: number;
     let u: number;

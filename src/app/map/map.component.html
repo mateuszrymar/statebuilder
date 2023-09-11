@@ -4,8 +4,18 @@
   (mouseenter)="this.isCursorOnMap = true"
   (mouseleave)="this.isCursorOnMap = false; checkMap($event)"
   >
+
   <div class="tile"></div>
+
   <svg>
     <polygon class="map-border" [attr.points]="polygonVertices" />
   </svg>
+
+  <div class="container">
+    <div id="topLeft" class="testpoint top left"></div>
+    <div id="topRight" class="testpoint top right"></div>
+    <div id="bottomRight" class="testpoint bottom right"></div>
+    <div id="bottomLeft" class="testpoint bottom left"></div>
+  </div>
+
 </div>

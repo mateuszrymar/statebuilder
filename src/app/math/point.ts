@@ -21,5 +21,10 @@ export class Point implements IPoint {
   move(vector: Vector) {
     this.X = this.X + vector.X;
     this.Y = this.Y + vector.Y;
+    return this;
+  }
+
+  copy(): Point {
+    return new Point(this.X, this.Y);
   }
 }
