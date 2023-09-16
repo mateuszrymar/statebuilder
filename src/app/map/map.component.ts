@@ -18,10 +18,10 @@ export class MapComponent implements OnInit {
   tileSizePx = `${this.tileSize}px`;
   xUnit = Vector.fromNumbers(0,1);
   yUnit = Vector.fromNumbers(0,1);
-  xTilePositionPx = `100px`;
-  yTilePositionPx = `100px`;
+  xTilePositionPx = `0px`;
+  yTilePositionPx = `0px`;
 
-  cursorPosition = new Point(0, 0);
+  cursorPosition = Point.zero();
   isCursorOnMap: boolean = false;  
 
   tl = new Point(0, 0);
@@ -36,12 +36,7 @@ export class MapComponent implements OnInit {
   bottomRight!: Point;
   bottomLeft!: Point;
 
-  testLine_01 = Line.fromPoints(new Point(0,0), new Point(0,0));
-  testLine_02 = Line.fromPoints(new Point(0,0), new Point(0,0));
-  public testPoint_01 = new Point(0,0);
-  testPoint_02 = new Point(0,0);
-
-  tilePosition = new Point(0,0);
+  tilePosition = Point.zero();
 
   constructor(private userInterfaceService: UserInterfaceService, private elementRef: ElementRef) {
   }
@@ -51,22 +46,16 @@ export class MapComponent implements OnInit {
   }
 
   createTestPoints() {
-    this.topLeft = new Point(
-      document.querySelector("#topLeft")!.getBoundingClientRect().left,
-      document.querySelector("#topLeft")!.getBoundingClientRect().top,
-    );
-    this.topRight = new Point(
-      document.querySelector("#topRight")!.getBoundingClientRect().left,
-      document.querySelector("#topRight")!.getBoundingClientRect().top,
-    );
-    this.bottomRight = new Point(
-      document.querySelector("#bottomRight")!.getBoundingClientRect().left,
-      document.querySelector("#bottomRight")!.getBoundingClientRect().top,
-    );
-    this.bottomLeft = new Point(
-      document.querySelector("#bottomLeft")!.getBoundingClientRect().left,
-      document.querySelector("#bottomLeft")!.getBoundingClientRect().top,
-    );
+    this.topLeft = this.getPoint("#topLeft");
+    this.topRight = this.getPoint("#topRight");
+    this.bottomRight = this.getPoint("#bottomRight");
+    this.bottomLeft = this.getPoint("#bottomLeft");
+  }
+
+  getPoint(id: string) {
+    return new Point(
+      document.querySelector(id)!.getBoundingClientRect().left,
+      document.querySelector(id)!.getBoundingClientRect().top)
   }
 
   calculateUnits(): void {
@@ -96,25 +85,14 @@ export class MapComponent implements OnInit {
   }
 
   calculateTilePosition(event: MouseEvent): void {
-    let lineX = Line.fromPoints(this.topLeft, this.topRight);
-    let lineY = Line.fromPoints(this.topLeft, this.bottomLeft);
-
     let vector = Vector.fromPoints(this.topRight, this.cursorPosition);
-    let vector2 = Vector.fromPoints(this.bottomLeft, this.cursorPosition);
-
     let lineXMoved = Line.fromPoints(this.topLeft.copy().move(vector), this.topRight.copy().move(vector));
-    let lineYMoved = Line.fromPoints(this.topLeft.copy().move(vector2), this.bottomLeft.copy().move(vector2));
-
-    this.testLine_01 = lineYMoved;
-    this.testLine_02 = lineX;
+    let lineY = Line.fromPoints(this.topLeft, this.bottomLeft);
 
     let intersectionDomain = lineXMoved.intersectionDomain(lineY);
     
-    let tilePositionX = (1 - intersectionDomain.X);
-    let tilePositionY = intersectionDomain.Y;
-    
-    let unitPositionX = Math.floor(tilePositionX * this.mapSize / this.tileSize)
-    let unitPositionY = Math.floor(tilePositionY * this.mapSize / this.tileSize)
+    let unitPositionX = Math.floor((1 - intersectionDomain.X) * this.mapSize / this.tileSize)
+    let unitPositionY = Math.floor(intersectionDomain.Y * this.mapSize / this.tileSize)
 
     this.tilePosition = new Point(unitPositionX, unitPositionY);
   }

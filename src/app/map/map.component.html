@@ -1,7 +1,3 @@
-<!-- <app-line [line]="testLine_01"></app-line>
-<app-line [line]="testLine_02"></app-line> -->
-<div class="point" [ngStyle]="{'left': testPoint_01.Y, 'top': testPoint_01.Y}"></div>
-
 <div class="map skew" 
   [style.--map-size]="mapSizePx" 
   (mousemove)="checkMap($event)"
@@ -14,10 +10,6 @@
     [style.margin-top]="yTilePositionPx"
     [style.margin-left]="xTilePositionPx"
     ></div>
-
-  <!-- <svg>
-    <polygon class="map-border" [attr.points]="polygonVertices" />
-  </svg>   -->
 
   <div class="container">
     <div id="topLeft" class="testpoint top left"></div>
