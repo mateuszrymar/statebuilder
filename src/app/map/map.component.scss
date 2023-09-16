@@ -13,8 +13,8 @@
 .tile {
   position: absolute;
 
-  margin-top: calc(var(--tile-size) * 30);
-  margin-left: calc(var(--tile-size) * 20);
+  // top: calc(var(--tile-size) * 31);
+  // left: calc(var(--tile-size) * 20);
 
   aspect-ratio : 1 / 1;
   width: calc(var(--tile-size) - var(--tile-border));

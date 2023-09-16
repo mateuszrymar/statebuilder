@@ -12,7 +12,14 @@ import { Vector } from '../math/vector';
 })
 export class MapComponent implements OnInit {
   mapSize: number = 2048;
+  tileCount = 64;
   mapSizePx = `${this.mapSize}px`;
+  tileSize = this.mapSize / this.tileCount;
+  tileSizePx = `${this.tileSize}px`;
+  xUnit = Vector.fromNumbers(0,1);
+  yUnit = Vector.fromNumbers(0,1);
+  xTilePositionPx = `100px`;
+  yTilePositionPx = `100px`;
 
   cursorPosition = new Point(0, 0);
   isCursorOnMap: boolean = false;  
@@ -34,6 +41,8 @@ export class MapComponent implements OnInit {
   public testPoint_01 = new Point(0,0);
   testPoint_02 = new Point(0,0);
 
+  tilePosition = new Point(0,0);
+
   constructor(private userInterfaceService: UserInterfaceService, private elementRef: ElementRef) {
   }
 
@@ -49,26 +58,28 @@ export class MapComponent implements OnInit {
     this.topRight = new Point(
       document.querySelector("#topRight")!.getBoundingClientRect().left,
       document.querySelector("#topRight")!.getBoundingClientRect().top,
-    ) ;
+    );
     this.bottomRight = new Point(
       document.querySelector("#bottomRight")!.getBoundingClientRect().left,
       document.querySelector("#bottomRight")!.getBoundingClientRect().top,
-    ) ;
+    );
     this.bottomLeft = new Point(
       document.querySelector("#bottomLeft")!.getBoundingClientRect().left,
       document.querySelector("#bottomLeft")!.getBoundingClientRect().top,
-    ) ;
-    console.log(this.topLeft);
-    console.log(this.topRight);
-    console.log(this.bottomRight);
-    console.log(this.bottomLeft);
+    );
+  }
+
+  calculateUnits(): void {
+    this.xUnit = Vector.fromPoints(this.topLeft, this.topRight).multiplyBy(1/this.tileCount);
+    this.yUnit = Vector.fromPoints(this.topLeft, this.bottomLeft).multiplyBy(1/this.tileCount);
   }
 
   checkMap(event: MouseEvent) {
     this.createTestPoints();
+    this.calculateUnits();
     this.setCursor(event);
-    this.calculatePositionOnMap(event);
-
+    this.setTilePosition();
+    this.calculateTilePosition(event);
     this.userInterfaceService.setCursor(this.cursorPosition, this.isCursorOnMap);
   }
 
@@ -77,13 +88,15 @@ export class MapComponent implements OnInit {
     this.cursorPosition.Y = event.clientY;
   }
 
-  calculatePositionOnMap(event: MouseEvent) {
-    // @TODO: To calculate position on map, we need to read points
-    // from real DOM values.
+  setTilePosition() {
+    this.userInterfaceService.setTilePosition(this.tilePosition);
 
+    this.xTilePositionPx = `${this.tilePosition.X * this.tileSize}px`;
+    this.yTilePositionPx = `${this.tilePosition.Y * this.tileSize}px`;  
+  }
+
+  calculateTilePosition(event: MouseEvent): void {
     let lineX = Line.fromPoints(this.topLeft, this.topRight);
-    
-    console.log('unmoved', lineX);
     let lineY = Line.fromPoints(this.topLeft, this.bottomLeft);
 
     let vector = Vector.fromPoints(this.topRight, this.cursorPosition);
@@ -95,15 +108,14 @@ export class MapComponent implements OnInit {
     this.testLine_01 = lineYMoved;
     this.testLine_02 = lineX;
 
+    let intersectionDomain = lineXMoved.intersectionDomain(lineY);
+    
+    let tilePositionX = (1 - intersectionDomain.X);
+    let tilePositionY = intersectionDomain.Y;
+    
+    let unitPositionX = Math.floor(tilePositionX * this.mapSize / this.tileSize)
+    let unitPositionY = Math.floor(tilePositionY * this.mapSize / this.tileSize)
 
-    let intersectionPointXAxis = lineYMoved.intersect(lineX);
-    let intersectionPointYAxis = lineXMoved.intersect(lineY);
-
-    this.testPoint_01 = intersectionPointXAxis;
-    this.testPoint_02 = intersectionPointYAxis;
-
-
-    console.log(intersectionPointXAxis);
-    console.log(intersectionPointYAxis);
+    this.tilePosition = new Point(unitPositionX, unitPositionY);
   }
 }

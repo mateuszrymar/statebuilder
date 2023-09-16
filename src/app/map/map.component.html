@@ -1,5 +1,5 @@
-<app-line [line]="testLine_01"></app-line>
-<app-line [line]="testLine_02"></app-line>
+<!-- <app-line [line]="testLine_01"></app-line>
+<app-line [line]="testLine_02"></app-line> -->
 <div class="point" [ngStyle]="{'left': testPoint_01.Y, 'top': testPoint_01.Y}"></div>
 
 <div class="map skew" 
@@ -9,8 +9,11 @@
   (mouseleave)="this.isCursorOnMap = false; checkMap($event)"
   >
 
-  <div class="tile"></div>
-
+  <div class="tile" 
+    [style.--tile-size]="tileSizePx"
+    [style.margin-top]="yTilePositionPx"
+    [style.margin-left]="xTilePositionPx"
+    ></div>
 
   <!-- <svg>
     <polygon class="map-border" [attr.points]="polygonVertices" />

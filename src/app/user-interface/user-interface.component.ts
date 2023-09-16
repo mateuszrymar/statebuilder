@@ -21,6 +21,14 @@ export class UserInterfaceComponent {
     return this.userInterfaceService.cursorPosition.Y;
   }
 
+  public getTileX(): number {
+    return this.userInterfaceService.tilePosition.X;
+  }
+
+  public getTileY(): number {
+    return this.userInterfaceService.tilePosition.Y;
+  }
+
   public getIsOnMap(): boolean {
     return this.userInterfaceService.isCursorOnMap;
   }

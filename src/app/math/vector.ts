@@ -37,10 +37,17 @@ export class Vector implements IVector {
     this.Y = this.Y * multiplier; 
   }
 
-  multiplyBy(multiplier: number): void {
+  multiplyBy(multiplier: number): Vector {
     this.X = this.X * multiplier;
     this.Y = this.Y * multiplier;
+    return this;
   };
+
+  add(vec2: Vector): Vector {
+    this.X += vec2.X;
+    this.Y += vec2.Y;
+    return this;
+  }
   
   private dotProduct(vec2: Vector) {
     return (this.X * vec2.X) + (this.Y * vec2.Y);

@@ -14,11 +14,22 @@ export class Line {
     return result;
   }
 
+  length(): number {
+    return Vector.fromPoints(this.start, this.end).length();
+  }
+
   intersect(line2: Line): Point {
+    let t = this.intersectionDomain(line2).X;
+    
+    let resultX = this.start.X + t*(this.end.X - this.start.X);
+    let resultY = this.start.Y + t*(this.end.Y - this.start.Y);
+
+    return new Point(resultX, resultY);
+  }
+
+  intersectionDomain(line2: Line): Point {
     let t: number;
     let u: number;
-    let resultX: number;
-    let resultY: number;
 
     t = (
       (this.start.X - line2.start.X) * (line2.start.Y - line2.end.Y) -
@@ -33,10 +44,6 @@ export class Line {
       (this.start.Y - this.end.Y) * (line2.start.X - line2.end.X)
     );
 
-    resultX = this.start.X + t*(this.end.X - this.start.X);
-    resultY = this.start.Y + t*(this.end.Y - this.start.Y);
-
-    console.log(t, u);
-    return new Point(resultX, resultY);
+    return new Point(t, u);
   }
 }
