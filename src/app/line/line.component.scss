@@ -1,0 +1,16 @@
+svg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 5;
+  pointer-events: none;
+
+}
+
+.line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  stroke: red;
+  stroke-width: 3px;
+}

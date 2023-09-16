@@ -48,6 +48,14 @@ polygon {
   height: 0px;
 }
 
+.point {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  transform: translate(-3px, -3px);
+  fill: pink;
+}
+
 .top {
   top: 0;
 }

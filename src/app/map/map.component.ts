@@ -29,6 +29,11 @@ export class MapComponent implements OnInit {
   bottomRight!: Point;
   bottomLeft!: Point;
 
+  testLine_01 = Line.fromPoints(new Point(0,0), new Point(0,0));
+  testLine_02 = Line.fromPoints(new Point(0,0), new Point(0,0));
+  public testPoint_01 = new Point(0,0);
+  testPoint_02 = new Point(0,0);
+
   constructor(private userInterfaceService: UserInterfaceService, private elementRef: ElementRef) {
   }
 
@@ -38,20 +43,20 @@ export class MapComponent implements OnInit {
 
   createTestPoints() {
     this.topLeft = new Point(
+      document.querySelector("#topLeft")!.getBoundingClientRect().left,
       document.querySelector("#topLeft")!.getBoundingClientRect().top,
-      document.querySelector("#topLeft")!.getBoundingClientRect().left
     );
     this.topRight = new Point(
+      document.querySelector("#topRight")!.getBoundingClientRect().left,
       document.querySelector("#topRight")!.getBoundingClientRect().top,
-      document.querySelector("#topRight")!.getBoundingClientRect().left
     ) ;
     this.bottomRight = new Point(
+      document.querySelector("#bottomRight")!.getBoundingClientRect().left,
       document.querySelector("#bottomRight")!.getBoundingClientRect().top,
-      document.querySelector("#bottomRight")!.getBoundingClientRect().left
     ) ;
     this.bottomLeft = new Point(
+      document.querySelector("#bottomLeft")!.getBoundingClientRect().left,
       document.querySelector("#bottomLeft")!.getBoundingClientRect().top,
-      document.querySelector("#bottomLeft")!.getBoundingClientRect().left
     ) ;
     console.log(this.topLeft);
     console.log(this.topRight);
@@ -60,6 +65,7 @@ export class MapComponent implements OnInit {
   }
 
   checkMap(event: MouseEvent) {
+    this.createTestPoints();
     this.setCursor(event);
     this.calculatePositionOnMap(event);
 
@@ -76,19 +82,26 @@ export class MapComponent implements OnInit {
     // from real DOM values.
 
     let lineX = Line.fromPoints(this.topLeft, this.topRight);
+    
     console.log('unmoved', lineX);
     let lineY = Line.fromPoints(this.topLeft, this.bottomLeft);
-    // console.log(lineY);
 
     let vector = Vector.fromPoints(this.topRight, this.cursorPosition);
     let vector2 = Vector.fromPoints(this.bottomLeft, this.cursorPosition);
 
     let lineXMoved = Line.fromPoints(this.topLeft.copy().move(vector), this.topRight.copy().move(vector));
-    console.log('moved', lineXMoved)
     let lineYMoved = Line.fromPoints(this.topLeft.copy().move(vector2), this.bottomLeft.copy().move(vector2));
+
+    this.testLine_01 = lineYMoved;
+    this.testLine_02 = lineX;
+
 
     let intersectionPointXAxis = lineYMoved.intersect(lineX);
     let intersectionPointYAxis = lineXMoved.intersect(lineY);
+
+    this.testPoint_01 = intersectionPointXAxis;
+    this.testPoint_02 = intersectionPointYAxis;
+
 
     console.log(intersectionPointXAxis);
     console.log(intersectionPointYAxis);
