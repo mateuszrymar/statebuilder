@@ -25,8 +25,8 @@ export class TileService {
 
   setTilePosition(newPosition: Point) {
     this.tilePosition = newPosition;
-    this.xTilePositionPx.next(`${newPosition.X}px`);
-    this.yTilePositionPx.next(`${newPosition.Y}px`);    
+    this.xTilePositionPx.next(`${newPosition.X * this.tileSize}px`);
+    this.yTilePositionPx.next(`${newPosition.Y * this.tileSize}px`);
   }
 
   getXTilePositionPx() {
