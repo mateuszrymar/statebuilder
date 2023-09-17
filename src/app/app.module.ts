@@ -7,6 +7,7 @@ import { MapComponent } from './map/map.component';
 import { UserInterfaceComponent } from './user-interface/user-interface.component';
 import { LineComponent } from './line/line.component';
 import { TileComponent } from './tile/tile.component';
+import { BuildDialogComponent } from './build-dialog/build-dialog.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { TileComponent } from './tile/tile.component';
     MapComponent,
     UserInterfaceComponent,
     LineComponent,
-    TileComponent
+    TileComponent,
+    BuildDialogComponent
   ],
   imports: [
     BrowserModule,

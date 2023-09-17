@@ -12,6 +12,8 @@ export class TileComponent implements OnInit {
   xTilePositionPx = '0px';
   yTilePositionPx = '0px';
 
+  isClicked = false;
+
   private positionXSubscription: Subscription = new Subscription();
   private positionYSubscription: Subscription = new Subscription();
 
@@ -26,7 +28,11 @@ export class TileComponent implements OnInit {
     this.positionYSubscription = this._tileService.getYTilePositionPx().subscribe((position) => {
       this.yTilePositionPx = position;
     });
+  }
 
+  public toggleClicked() {
+    this.isClicked = !this.isClicked;
+    console.log(this.isClicked);
   }
 
 }
