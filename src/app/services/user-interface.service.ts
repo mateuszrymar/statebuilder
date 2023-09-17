@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IPoint } from '../models/geometry.interface';
+import { ResourceService } from './resource.service';
 
 @Injectable({
   providedIn: 'root'

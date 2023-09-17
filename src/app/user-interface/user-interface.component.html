@@ -1,8 +1,11 @@
 <div class="viewport">
 
+  <div class="ui resources">
+    <span>Gold: {{ getGold() }}</span>
+    <span>Settlers: {{ getSettlers() }}</span>
+  </div>
+
   <div class="ui">
-    <p>user-interface works!</p>
-    <p>cursor position: {{ getCursorX() }}, {{ getCursorY() }}</p>
     <p>tile position: {{ getTileX() }}, {{ getTileY() }}</p>
     <p>on map?: {{ getIsOnMap() }}</p>
   </div>

@@ -4,6 +4,8 @@ import { IPoint } from '../models/geometry.interface';
 import { Point } from '../math/point';
 import { Line } from '../math/line';
 import { Vector } from '../math/vector';
+import { TileService } from '../services/tile.service';
+import { MapService } from '../services/map.service';
 
 @Component({
   selector: 'app-map',
@@ -11,23 +13,16 @@ import { Vector } from '../math/vector';
   styleUrls: ['./map.component.scss']
 })
 export class MapComponent implements OnInit {
-  mapSize: number = 2048;
-  tileCount = 64;
-  mapSizePx = `${this.mapSize}px`;
-  tileSize = this.mapSize / this.tileCount;
-  tileSizePx = `${this.tileSize}px`;
-  xUnit = Vector.fromNumbers(0,1);
-  yUnit = Vector.fromNumbers(0,1);
-  xTilePositionPx = `0px`;
-  yTilePositionPx = `0px`;
+  private mapSize = this._mapService.mapSize;
+  public mapSizePx = this._mapService.mapSizePx;
 
-  cursorPosition = Point.zero();
-  isCursorOnMap: boolean = false;  
+  public cursorPosition = Point.zero();
+  public isCursorOnMap: boolean = false;  
 
-  tl = new Point(0, 0);
-  tr = new Point(this.mapSize, 0);
-  br = new Point(this.mapSize, this.mapSize);
-  bl = new Point(0, this.mapSize);
+  private tl = new Point(0, 0);
+  private tr = new Point(this.mapSize, 0);
+  private br = new Point(this.mapSize, this.mapSize);
+  private bl = new Point(0, this.mapSize);
 
   polygonVertices = `${this.tl.toString()} ${this.tr.toString()} ${this.br.toString()} ${this.bl.toString()}`;
 
@@ -36,13 +31,25 @@ export class MapComponent implements OnInit {
   bottomRight!: Point;
   bottomLeft!: Point;
 
+  xUnit = Vector.fromNumbers(0,1);
+  yUnit = Vector.fromNumbers(0,1);  
+
+  tileSize = this.mapSize / this._tileService.tileCount;
+  tileSizePx = `${this.tileSize}px`;
+  xTilePositionPx = `0px`;
+  yTilePositionPx = `0px`;
   tilePosition = Point.zero();
 
-  constructor(private userInterfaceService: UserInterfaceService, private elementRef: ElementRef) {
-  }
+  constructor(
+    private _userInterfaceService: UserInterfaceService,
+    private _tileService: TileService,
+    private _mapService: MapService,
+    private _elementRef: ElementRef
+  ) {}
 
   ngOnInit(): void {
     this.createTestPoints();
+    this.setTilePosition();
   }
 
   createTestPoints() {
@@ -59,17 +66,17 @@ export class MapComponent implements OnInit {
   }
 
   calculateUnits(): void {
-    this.xUnit = Vector.fromPoints(this.topLeft, this.topRight).multiplyBy(1/this.tileCount);
-    this.yUnit = Vector.fromPoints(this.topLeft, this.bottomLeft).multiplyBy(1/this.tileCount);
+    this.xUnit = Vector.fromPoints(this.topLeft, this.topRight).multiplyBy(1/this._tileService.tileCount);
+    this.yUnit = Vector.fromPoints(this.topLeft, this.bottomLeft).multiplyBy(1/this._tileService.tileCount);
   }
 
   checkMap(event: MouseEvent) {
     this.createTestPoints();
     this.calculateUnits();
     this.setCursor(event);
-    this.setTilePosition();
     this.calculateTilePosition(event);
-    this.userInterfaceService.setCursor(this.cursorPosition, this.isCursorOnMap);
+    this.setTilePosition();
+    this._userInterfaceService.setCursor(this.cursorPosition, this.isCursorOnMap);
   }
 
   setCursor(event: MouseEvent) {
@@ -78,7 +85,8 @@ export class MapComponent implements OnInit {
   }
 
   setTilePosition() {
-    this.userInterfaceService.setTilePosition(this.tilePosition);
+    this._userInterfaceService.setTilePosition(this.tilePosition);
+    this._tileService.setTilePosition(this.tilePosition);
 
     this.xTilePositionPx = `${this.tilePosition.X * this.tileSize}px`;
     this.yTilePositionPx = `${this.tilePosition.Y * this.tileSize}px`;  

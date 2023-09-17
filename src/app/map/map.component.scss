@@ -10,17 +10,6 @@
   box-shadow: -10px 20px 20px black;
 }
 
-.tile {
-  position: absolute;
-
-  // top: calc(var(--tile-size) * 31);
-  // left: calc(var(--tile-size) * 20);
-
-  aspect-ratio : 1 / 1;
-  width: calc(var(--tile-size) - var(--tile-border));
-  border: var(--tile-border) solid black;  
-}
-
 svg {
   position: absolute;
 
