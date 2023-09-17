@@ -1,6 +1,10 @@
 .dialog {
+    transform:  rotate(30deg) scaleY(200%);
+    position: absolute;
+    bottom: 10em;
     width: 16em;
-    height: 8em;
+    padding: 1em;
     background-color: grey;
-    pointer-events: none;
+
+    box-shadow: .2em .2em .2em black;
 }

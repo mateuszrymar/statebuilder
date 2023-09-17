@@ -39,6 +39,8 @@ export class MapComponent implements OnInit {
   xTilePositionPx = `0px`;
   yTilePositionPx = `0px`;
   tilePosition = Point.zero();
+  isTileClicked = false;
+  isTileClicked$ = this._tileService.getIsTileClicked().subscribe(value => this.isTileClicked = value);
 
   constructor(
     private _userInterfaceService: UserInterfaceService,
@@ -71,12 +73,14 @@ export class MapComponent implements OnInit {
   }
 
   checkMap(event: MouseEvent) {
-    this.createTestPoints();
-    this.calculateUnits();
-    this.setCursor(event);
-    this.calculateTilePosition(event);
-    this.setTilePosition();
-    this._userInterfaceService.setCursor(this.cursorPosition, this.isCursorOnMap);
+    if (!this.isTileClicked) {
+      this.createTestPoints();
+      this.calculateUnits();
+      this.setCursor(event);
+      this.calculateTilePosition(event);
+      this.setTilePosition();
+      this._userInterfaceService.setCursor(this.cursorPosition, this.isCursorOnMap);
+    }
   }
 
   setCursor(event: MouseEvent) {

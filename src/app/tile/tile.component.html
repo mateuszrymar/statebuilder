@@ -1,8 +1,9 @@
+
 <div class="tile" 
 	[style.--tile-size]="tileSizePx"
 	[style.left]="xTilePositionPx"
 	[style.top]="yTilePositionPx"
 	(click)="toggleClicked()"
 >
- <!-- <app-build-dialog ngIf="isClicked"></app-build-dialog> -->
+	<app-build-dialog class="build-dialog" *ngIf="isClicked"></app-build-dialog>
 </div>

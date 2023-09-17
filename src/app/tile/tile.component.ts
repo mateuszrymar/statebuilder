@@ -32,7 +32,6 @@ export class TileComponent implements OnInit {
 
   public toggleClicked() {
     this.isClicked = !this.isClicked;
-    console.log(this.isClicked);
+    this._tileService.setTileClicked(this.isClicked);
   }
-
 }

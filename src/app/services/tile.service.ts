@@ -12,6 +12,7 @@ export class TileService {
   public tileSizePx = `${this.tileSize}px`;
 
   public tilePosition = Point.zero();
+  public isTileClicked = new BehaviorSubject<boolean>(false);
   private xTilePositionPx = new BehaviorSubject<string>(`${this.tilePosition.X}px`);
   private yTilePositionPx = new BehaviorSubject<string>(`${this.tilePosition.Y}px`);
 
@@ -29,11 +30,19 @@ export class TileService {
     this.yTilePositionPx.next(`${newPosition.Y * this.tileSize}px`);
   }
 
+  setTileClicked(tileClicked: boolean) {
+    this.isTileClicked.next(tileClicked);
+  }
+
   getXTilePositionPx() {
     return this.xTilePositionPx.asObservable();
   }
 
   getYTilePositionPx() {
     return this.yTilePositionPx.asObservable();
+  }
+
+  getIsTileClicked() {
+    return this.isTileClicked.asObservable();
   }
 }
