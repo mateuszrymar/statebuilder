@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Point } from '../math/point';
 import { MapService } from './map.service';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { UserInterfaceService } from './user-interface.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,9 @@ export class TileService {
   private yTilePositionPx = new BehaviorSubject<string>(`${this.tilePosition.Y}px`);
 
   constructor(
-    private _mapService: MapService
+    private _mapService: MapService,
+    private _userInterfaceService: UserInterfaceService
+
   ) { }
 
   setTileSize(newTileSize: number) {
@@ -32,6 +35,7 @@ export class TileService {
 
   setTileClicked(tileClicked: boolean) {
     this.isTileClicked.next(tileClicked);
+    this._userInterfaceService.setToggleDialog(true);
   }
 
   getXTilePositionPx() {

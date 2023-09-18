@@ -1,10 +1,11 @@
 .dialog {
-    transform:  rotate(30deg) scaleY(200%);
     position: absolute;
-    bottom: 10em;
+    transform: translateX(-8em) translateY(-12em);
     width: 16em;
     padding: 1em;
     background-color: grey;
 
     box-shadow: .2em .2em .2em black;
+    z-index: 20;
 }
+

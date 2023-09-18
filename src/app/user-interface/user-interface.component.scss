@@ -3,6 +3,7 @@
   height: 100vh;
   position: fixed;
   pointer-events: none;
+  z-index: 20;
 }
 
 .ui {
@@ -14,4 +15,10 @@
 
 span {
   margin-right: 1em;
+}
+
+.click-away {
+  z-index: 10;
+  background-color: rgba($color: #000000, $alpha: 0.5);
+  pointer-events: all;
 }

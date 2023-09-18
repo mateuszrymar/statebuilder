@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { TileService } from '../services/tile.service';
 import { Subscription } from 'rxjs';
+import { UserInterfaceService } from '../services/user-interface.service';
 
 @Component({
   selector: 'app-tile',
@@ -12,13 +13,15 @@ export class TileComponent implements OnInit {
   xTilePositionPx = '0px';
   yTilePositionPx = '0px';
 
-  isClicked = false;
+  isDialogVisible = false;
 
   private positionXSubscription: Subscription = new Subscription();
   private positionYSubscription: Subscription = new Subscription();
+  private isDialogVisibleSubscription: Subscription = new Subscription();
 
   constructor(
-    private _tileService: TileService
+    private _tileService: TileService,
+    private _userInterfaceService: UserInterfaceService
   ) {}
 
   ngOnInit() {
@@ -28,10 +31,12 @@ export class TileComponent implements OnInit {
     this.positionYSubscription = this._tileService.getYTilePositionPx().subscribe((position) => {
       this.yTilePositionPx = position;
     });
+    this.isDialogVisibleSubscription = this._userInterfaceService.getToggleDialog().subscribe((isVisible) => {
+      this.isDialogVisible = isVisible;
+    });
   }
 
   public toggleClicked() {
-    this.isClicked = !this.isClicked;
-    this._tileService.setTileClicked(this.isClicked);
+    this._tileService.setTileClicked(this.isDialogVisible);
   }
 }

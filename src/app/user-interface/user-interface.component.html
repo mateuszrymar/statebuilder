@@ -9,7 +9,17 @@
     <p>tile position: {{ getTileX() }}, {{ getTileY() }}</p>
     <p>on map?: {{ getIsOnMap() }}</p>
   </div>
-
   
-
 </div>
+
+<div 
+  class="viewport click-away" 
+  (click)="closeDialog()"
+  *ngIf="isDialogVisible"
+>
+  <app-build-dialog 
+    class="build-dialog" 
+    *ngIf="isDialogVisible"
+  ></app-build-dialog>
+</div>
+
