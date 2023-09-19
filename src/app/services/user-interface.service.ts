@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { IPoint } from '../models/geometry.interface';
-import { ResourceService } from './resource.service';
 import { Subject, BehaviorSubject } from 'rxjs';
 
 
