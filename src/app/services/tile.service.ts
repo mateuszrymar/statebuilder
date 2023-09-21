@@ -3,6 +3,7 @@ import { Point } from '../math/point';
 import { MapService } from './map.service';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { UserInterfaceService } from './user-interface.service';
+import { IPoint } from '../models/geometry.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class TileService {
     this.tileSize = newTileSize;
   }
 
-  setTilePosition(newPosition: Point) {
+  setTilePosition(newPosition: IPoint) {
     this.tilePosition = newPosition;
     this.xTilePositionPx.next(`${newPosition.X * this.tileSize}px`);
     this.yTilePositionPx.next(`${newPosition.Y * this.tileSize}px`);

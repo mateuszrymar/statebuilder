@@ -5,8 +5,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class BalanceService {
-  public goldBalance = new BehaviorSubject<number>(100);
-  public settlersBalance = new BehaviorSubject<number>(20);
+  public goldBalance = new BehaviorSubject<number>(500);
+  public settlersBalance = new BehaviorSubject<number>(100);
 
   constructor() { }
 

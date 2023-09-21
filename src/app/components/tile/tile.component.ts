@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { TileService } from '../services/tile.service';
+import { TileService } from '../../services/tile.service';
 import { Subscription } from 'rxjs';
-import { UserInterfaceService } from '../services/user-interface.service';
+import { UserInterfaceService } from '../../services/user-interface.service';
 
 @Component({
   selector: 'app-tile',

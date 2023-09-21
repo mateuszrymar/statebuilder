@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { IPoint } from '../models/geometry.interface';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { Coordinates } from '../math/coordinates';
+import { Point } from '../math/point';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserInterfaceService {
-  cursorPosition: IPoint = {X: 0, Y: 0};
+  cursorPosition: IPoint = Point.zero();
   isCursorOnMap = false;
-  tilePosition: IPoint = {X: 0, Y: 0};
+  tileCoordinates: IPoint = new Coordinates(0,0);
   isDialogVisible  = new BehaviorSubject<boolean>(false);
-  dialogPosition: IPoint = {X: 0, Y: 0};
+  dialogPosition: IPoint = Point.zero();
 
   constructor() { }
 
@@ -21,7 +23,7 @@ export class UserInterfaceService {
   }
 
   public setTilePosition(newPosition: IPoint) {
-    this.tilePosition = newPosition;
+    this.tileCoordinates = newPosition;
   }
 
   public setToggleDialog(toggle: boolean) {

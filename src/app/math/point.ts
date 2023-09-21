@@ -10,7 +10,7 @@ export class Point implements IPoint {
     this.Y = yCoordinate;
   }
 
-  public static zero(): Point {
+  public static zero(): IPoint {
     return new Point(0,0);
   }
 

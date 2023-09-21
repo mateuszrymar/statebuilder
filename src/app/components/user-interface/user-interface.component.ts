@@ -1,9 +1,9 @@
 import { AfterViewInit, Component } from '@angular/core';
-import { UserInterfaceService } from '../services/user-interface.service';
-import { IPoint } from '../models/geometry.interface';
+import { UserInterfaceService } from '../../services/user-interface.service';
+import { IPoint } from '../../models/geometry.interface';
 import { Subject, BehaviorSubject, Subscription } from 'rxjs';
-import { TileService } from '../services/tile.service';
-import { BalanceService } from '../services/balance.service';
+import { TileService } from '../../services/tile.service';
+import { BalanceService } from '../../services/balance.service';
 
 
 @Component({
@@ -42,11 +42,11 @@ export class UserInterfaceComponent {
   }
 
   public getTileX(): number {
-    return this._userInterfaceService.tilePosition.X;
+    return this._userInterfaceService.tileCoordinates.X;
   }
 
   public getTileY(): number {
-    return this._userInterfaceService.tilePosition.Y;
+    return this._userInterfaceService.tileCoordinates.Y;
   }
 
   public getIsOnMap(): boolean {

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Point } from '../math/point';
-import { Line } from '../math/line';
+import { Point } from '../../math/point';
+import { Line } from '../../math/line';
 
 @Component({
   selector: 'app-line',
