@@ -4,6 +4,7 @@ import { IPoint } from '../../models/geometry.interface';
 import { Subject, BehaviorSubject, Subscription } from 'rxjs';
 import { TileService } from '../../services/tile.service';
 import { BalanceService } from '../../services/balance.service';
+import { TimeService } from 'src/app/services/time.service';
 
 
 @Component({
@@ -17,14 +18,17 @@ export class UserInterfaceComponent {
   public isCursorOnMap = false;
   public goldBalance = 0;
   public settlersBalance = 0;
+  public time = 0;
   private _isDialogVisible$: Subscription = new Subscription();
   private _goldBalance$: Subscription = new Subscription();
   private _settlersBalance$: Subscription = new Subscription();
+  private _time$: Subscription = new Subscription();
   
   constructor(
     private _userInterfaceService: UserInterfaceService,
     private _tileService: TileService,
     private _buildService: BalanceService,
+    private _timeService: TimeService,
   ) {}
 
   ngOnInit() {
@@ -39,6 +43,11 @@ export class UserInterfaceComponent {
     this._settlersBalance$ = this._buildService.getSettlersBalance().subscribe((settlersBalance) => {
       this.settlersBalance = settlersBalance;
     });
+
+    this._settlersBalance$ = this._timeService.getTimer().subscribe((time) => {
+      this.time = time;
+    });
+
   }
 
   public getTileX(): number {

@@ -37,3 +37,10 @@ body {
   --tile-size: calc(var(--map-size) / var(--map-tile-count));
   --tile-border: 2px;
 }
+
+.tile {
+	display: inline-block;
+	position: absolute;
+	aspect-ratio : 1 / 1;
+	width: calc(var(--tile-size) - var(--tile-border));
+}

@@ -1,4 +1,5 @@
 import { Coordinates } from "../math/coordinates";
+import { IPoint } from "../models/geometry.interface";
 import { ISettlement, SettlementLevel } from "../models/settlement.interface"
 import { Terrain } from "../models/terrain.interface";
 
@@ -21,7 +22,7 @@ export class Settlement implements ISettlement {
   goodsProduction = 10;
   goodsProductionGrowth = 1; // percent Year On Year
 
-  constructor(newCoordinates: Coordinates) {
-    this.coordinates = newCoordinates;  
+  constructor(newCoordinates: IPoint) {
+    this.coordinates = new Coordinates(newCoordinates);  
   }
 }

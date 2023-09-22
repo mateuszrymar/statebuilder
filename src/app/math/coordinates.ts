@@ -5,16 +5,12 @@ export class Coordinates implements IPoint {
   X: number;
   Y: number;
 
-  constructor(xCoordinate: number, yCoordinate: number) {
-    this.X = xCoordinate;
-    this.Y = yCoordinate;
+  constructor(coordinates: IPoint) {
+    this.X = coordinates.X;
+    this.Y = coordinates.Y;
   }
 
   public static zero() {
-    return new Coordinates(0,0);
-  }
-
-  toString(): string {
-    return `${this.X},${this.Y}`;
+    return new Coordinates(Point.zero());
   }
 }

@@ -1,1 +1,6 @@
-<p>settlements works!</p>
+<div 
+  *ngFor="let settlement of settlements" 
+  class="tile settlement"
+  [style.left]="settlement.coordinates.X * tileSize + 'px'"
+	[style.top]="settlement.coordinates.Y * tileSize + 'px'"
+></div>

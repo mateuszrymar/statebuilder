@@ -1,9 +1,5 @@
-.tile {
-	display: inline-block;
-	position: absolute;
-	aspect-ratio : 1 / 1;
-	width: calc(var(--tile-size) - var(--tile-border));
+.cursor {
 	border: var(--tile-border) solid black;
 	pointer-events: all;
 	z-index: 10;
-}  
+}
