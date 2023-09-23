@@ -37,6 +37,6 @@ export class BuildDialogComponent {
     };
     
     console.log(this._userInterfaceService.tileCoordinates);
-    this._dataService.getSettlements();
+    this._dataService.getRoads();
   }
 }

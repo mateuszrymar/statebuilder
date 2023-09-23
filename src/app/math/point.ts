@@ -19,7 +19,7 @@ export class Point implements IPoint {
   };
 
   toString(): string {
-    return `${this.X}, ${this.Y}`;
+    return `${this.X},${this.Y}`;
   }
 
   move(vector: Vector) {

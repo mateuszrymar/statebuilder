@@ -24,9 +24,13 @@ export class DataService {
       this.setRoad(newSettlement);
     }
   }
-  
+
   public getSettlements() {
-    return this.settlements$.asObservable();
+    return this.settlements$.asObservable();  
+  }
+  
+  public getRoads() {
+    return this.roads$.asObservable();
   }
 
   public getSettlement(id: string): Settlement | undefined {
