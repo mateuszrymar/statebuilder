@@ -32,7 +32,9 @@ export class BuildDialogComponent {
   buy(goldCost: number, settlersCost: number) {
     const isSucceessful = this._buildService.buy(goldCost, settlersCost);
 
-    if (isSucceessful) this._dataService.setSettlement(new Settlement(this._userInterfaceService.tileCoordinates));
+    if (isSucceessful) {
+      this._dataService.setSettlement(new Settlement(this._userInterfaceService.tileCoordinates))
+    };
     
     console.log(this._userInterfaceService.tileCoordinates);
     this._dataService.getSettlements();

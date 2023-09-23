@@ -13,4 +13,8 @@ export class Coordinates implements IPoint {
   public static zero() {
     return new Coordinates(Point.zero());
   }
+
+  public toPx() {
+    return `${this.X},${this.Y}`
+  }
 }

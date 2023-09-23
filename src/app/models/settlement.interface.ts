@@ -1,6 +1,10 @@
+import { Coordinates } from "../math/coordinates";
 import { Terrain } from "./terrain.interface";
 
-export interface ISettlement {  
+export interface ISettlement {
+  coordinates: Coordinates;
+  Id: string;
+
   terrain: Terrain;
   elevation: number;
   isCoastal: boolean;

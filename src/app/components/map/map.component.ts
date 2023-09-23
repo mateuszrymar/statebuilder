@@ -1,11 +1,11 @@
 import { Component, OnInit, ElementRef } from '@angular/core';
-import { UserInterfaceService } from '../services/user-interface.service';
-import { IPoint } from '../models/geometry.interface';
-import { Point } from '../math/point';
-import { Line } from '../math/line';
-import { Vector } from '../math/vector';
-import { TileService } from '../services/tile.service';
-import { MapService } from '../services/map.service';
+import { UserInterfaceService } from '../../services/user-interface.service';
+import { IPoint } from '../../models/geometry.interface';
+import { Point } from '../../math/point';
+import { Line } from '../../math/line';
+import { Vector } from '../../math/vector';
+import { TileService } from '../../services/tile.service';
+import { MapService } from '../../services/map.service';
 
 @Component({
   selector: 'app-map',

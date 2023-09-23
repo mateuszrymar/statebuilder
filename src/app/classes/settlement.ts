@@ -5,6 +5,7 @@ import { Terrain } from "../models/terrain.interface";
 
 export class Settlement implements ISettlement {
   coordinates = Coordinates.zero();
+  Id = '0,0';
 
   terrain = Terrain.Grasslands;
   elevation = 1;
@@ -24,5 +25,6 @@ export class Settlement implements ISettlement {
 
   constructor(newCoordinates: IPoint) {
     this.coordinates = new Coordinates(newCoordinates);  
+    this.Id = `${this.coordinates.X},${this.coordinates.Y}`;
   }
 }
