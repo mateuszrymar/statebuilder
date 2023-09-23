@@ -2,43 +2,35 @@ import { Coordinates } from "../math/coordinates";
 import { Guid } from "guid-typescript";
 import { IRoad } from "../models/road.interface";
 import { DataService } from "../services/data.service";
+import { Settlement } from "./settlement";
 
 export class Road implements IRoad {
   Id = `0,0-0,1`;
   points: Coordinates[] = [];
   pointsPx = ``;
 
-  private _startSettlementId: string;
-  private _endSettlementId: string;
+  private _startSettlement: Settlement;
+  private _endSettlement: Settlement;
 
   constructor(
-    private _dataService: DataService,
-    startSettlementId: string, 
-    endSettlementId: string
+    startSettlement: Settlement, 
+    endSettlement: Settlement
   ) {
-    this.Id = `${startSettlementId}-${endSettlementId}`;
-    this.points = this.setRoadPoints();
+    this._startSettlement = startSettlement;
+    this._endSettlement = endSettlement;
+
+    this.Id = `${startSettlement.Id}-${endSettlement.Id}`;
+    this.setRoadPoints();
     this.setRoadPointsPx();
-
-    this._startSettlementId = startSettlementId;
-    this._endSettlementId = endSettlementId;
   }
 
-  // public static Road
-
-  private setRoadPoints(): Coordinates[] {
-    const startSettlement = this._dataService.getSettlement(this._startSettlementId);
-    const endSettlement = this._dataService.getSettlement(this._endSettlementId);
-
-    const start = startSettlement ? startSettlement.coordinates : Coordinates.zero();
-    const end = endSettlement ? endSettlement.coordinates : Coordinates.zero();
-    
-    return [start, end];
+  private setRoadPoints(): void {
+    this.points = [this._startSettlement.coordinates, this._endSettlement.coordinates];
   }
 
-  private setRoadPointsPx(): string {
+  private setRoadPointsPx(): void {
     const points = this.points.map((coordinate) => coordinate.toPx());
-    console.log(points);
-    return ``;
+    this.pointsPx = `${points.join(' ')}`;
+    console.log('road points: ', this.pointsPx);
   }
 }

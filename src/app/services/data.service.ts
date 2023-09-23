@@ -11,15 +11,18 @@ export class DataService {
   settlements$ = new BehaviorSubject<Settlement[]>([]);
 
   roads: Road[] = [];
-  roads$ = new BehaviorSubject<Settlement[]>([]);
+  roads$ = new BehaviorSubject<Road[]>([]);
 
   constructor() { }
 
-  public setSettlement(settlementToSave: Settlement) {
-    this.settlements.push(settlementToSave);
+  public setSettlement(newSettlement: Settlement) {
+    this.settlements.push(newSettlement);
     this.settlements$.next(this.settlements);
     console.log("setting settlement", this.settlements);
-    // this.setRoad(new Road());
+
+    if (this.settlements.length >= 2) {
+      this.setRoad(newSettlement);
+    }
   }
   
   public getSettlements() {
@@ -30,10 +33,22 @@ export class DataService {
     return this.settlements.find((settlement) => settlement.Id === id);
   }
 
-  private setRoad(roadToSave: Road) {
-    console.log("setting road", this.settlements);
+  private setRoad(newSettlement: Settlement) {
+    const roadToSave = new Road(newSettlement, this.getClosestSettlement(newSettlement));
+
+    console.log("setting road", this.roads);
     this.roads.push(roadToSave);
-    this.roads$.next(this.settlements);
+    this.roads$.next(this.roads);
+  }
+
+  private getClosestSettlement(newSettlement: Settlement) {
+    function compareDistance(settlementA: Settlement, settlementB: Settlement) {
+      const distanceA = newSettlement.coordinates.distanceTo(settlementA.coordinates);
+      const distanceB = newSettlement.coordinates.distanceTo(settlementB.coordinates);
+      return distanceA - distanceB;
+    }
+
+    return this.settlements.sort(compareDistance)[1];    
   }
 
 }
