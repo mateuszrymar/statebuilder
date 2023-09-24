@@ -1,11 +1,11 @@
-import { Coordinates } from "../math/coordinates";
-import { Terrain } from "./terrain.interface";
+import { Coordinate } from "../math/coordinate";
+import { TerrainName } from "./terrain.interface";
 
 export interface ISettlement {
-  coordinates: Coordinates;
+  coordinates: Coordinate;
   Id: string;
 
-  terrain: Terrain;
+  terrain: TerrainName;
   elevation: number;
   isCoastal: boolean;
   isRiverside: boolean;

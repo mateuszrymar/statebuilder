@@ -1,7 +1,7 @@
 import { Injectable, OnInit } from '@angular/core';
 import { IPoint } from '../models/geometry.interface';
-import { Subject, BehaviorSubject } from 'rxjs';
-import { Coordinates } from '../math/coordinates';
+import { Subject, BehaviorSubject, Observable } from 'rxjs';
+import { Coordinate } from '../math/coordinate';
 import { Point } from '../math/point';
 import { TimeService } from './time.service';
 
@@ -12,8 +12,8 @@ import { TimeService } from './time.service';
 export class UserInterfaceService {
   cursorPosition: IPoint = Point.zero();
   isCursorOnMap = false;
-  tileCoordinates: IPoint = Point.zero();
-  isDialogVisible  = new BehaviorSubject<boolean>(false);
+  tileCoordinates: Coordinate = Coordinate.zero();
+  isDialogVisible = new BehaviorSubject<boolean>(false);
   dialogPosition: IPoint = Point.zero();
 
   constructor(
@@ -27,7 +27,11 @@ export class UserInterfaceService {
     this.isCursorOnMap = isOnMap;
   }
 
-  public setTilePosition(newPosition: IPoint) {
+  public getCursor() {
+
+  }
+
+  public setTilePosition(newPosition: Coordinate) {
     this.tileCoordinates = newPosition;
   }
 

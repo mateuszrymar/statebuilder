@@ -1,13 +1,13 @@
-import { Coordinates } from "../math/coordinates";
+import { Coordinate } from "../math/coordinate";
 import { IPoint } from "../models/geometry.interface";
 import { ISettlement, SettlementLevel } from "../models/settlement.interface"
-import { Terrain } from "../models/terrain.interface";
+import { TerrainName } from "../models/terrain.interface";
 
 export class Settlement implements ISettlement {
-  coordinates = Coordinates.zero();
+  coordinates = Coordinate.zero();
   Id = '0,0';
 
-  terrain = Terrain.Grasslands;
+  terrain = TerrainName.Grasslands;
   elevation = 1;
   isCoastal = false;
   isRiverside = false;
@@ -24,7 +24,7 @@ export class Settlement implements ISettlement {
   goodsProductionGrowth = 1; // percent Year On Year
 
   constructor(newCoordinates: IPoint) {
-    this.coordinates = new Coordinates(newCoordinates);  
+    this.coordinates = new Coordinate(newCoordinates);  
     this.Id = `${this.coordinates.X},${this.coordinates.Y}`;
   }
 }

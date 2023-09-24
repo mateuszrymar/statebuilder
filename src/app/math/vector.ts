@@ -31,10 +31,12 @@ export class Vector implements IVector {
     return Math.sqrt(Math.pow(vec.X, 2) + Math.pow(vec.Y, 2));
   }
   
-  setMagnitude(num: number): void {
+  setMagnitude(num: number): Vector {
     let multiplier = num / this.length();
     this.X = this.X * multiplier;
     this.Y = this.Y * multiplier; 
+
+    return this;
   }
 
   multiplyBy(multiplier: number): Vector {
@@ -55,6 +57,10 @@ export class Vector implements IVector {
   
   vectorAngle(vec2: Vector) {
     return Math.acos(this.dotProduct(vec2) / ((this.length() * Vector.calcLength(vec2))));
+  }
+
+  toPt(vec: Vector) {
+    return new Point(vec.X, vec.Y);
   }
 
   // intersect(vec2: Vector): Point {

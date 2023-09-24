@@ -1,8 +1,7 @@
-import { Coordinates } from "../math/coordinates";
+import { Coordinate } from "../math/coordinate";
 
 export interface IRoad {
-  Id: string;
-  
-  points: Coordinates[];
-  // pointsPx: string;
+  Id: string;  
+  points: Coordinate[];
+  length: number;
 }

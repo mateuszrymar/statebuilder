@@ -1,6 +1,6 @@
-<svg *ngFor="let road of roads">
+<svg *ngFor="let roadPoint of roadPoints">
   <polyline
-    [attr.points]=" getPolyline(road) "
-    style="fill:none;stroke:black;stroke-width:3"
+    [attr.points]=" roadPoint "
+    class="polyline"
   />
 </svg>

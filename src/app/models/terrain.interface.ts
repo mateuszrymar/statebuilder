@@ -1,4 +1,6 @@
-export enum Terrain {
+export enum TerrainName {
+  DeepWater,
+  ShallowWater,
   Grasslands,
   Steppe,
   Dryland,
@@ -7,7 +9,11 @@ export enum Terrain {
   Wilderness,
   Marsh,
   Hills,
-  Mountains,
   Alpine,
   Glacier,
+}
+
+export interface ITerrain {
+  terrainName: TerrainName;
+  movementSpeed: number;
 }

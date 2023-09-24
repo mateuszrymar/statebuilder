@@ -10,7 +10,6 @@ import { TileComponent } from './components/tile/tile.component';
 import { BuildDialogComponent } from './components/build-dialog/build-dialog.component';
 import { SettlementsComponent } from './components/settlements/settlements.component';
 import { RoadsComponent } from './components/roads/roads.component';
-import { PolylineComponent } from './components/polyline/polyline.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +21,6 @@ import { PolylineComponent } from './components/polyline/polyline.component';
     BuildDialogComponent,
     SettlementsComponent,
     RoadsComponent,
-    PolylineComponent
   ],
   imports: [
     BrowserModule,

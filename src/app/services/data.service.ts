@@ -18,7 +18,6 @@ export class DataService {
   public setSettlement(newSettlement: Settlement) {
     this.settlements.push(newSettlement);
     this.settlements$.next(this.settlements);
-    console.log("setting settlement", this.settlements);
 
     if (this.settlements.length >= 2) {
       this.setRoad(newSettlement);
@@ -40,7 +39,6 @@ export class DataService {
   private setRoad(newSettlement: Settlement) {
     const roadToSave = new Road(newSettlement, this.getClosestSettlement(newSettlement));
 
-    console.log("setting road", this.roads);
     this.roads.push(roadToSave);
     this.roads$.next(this.roads);
   }

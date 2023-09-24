@@ -1,4 +1,5 @@
 import { IPoint } from "../models/geometry.interface";
+import { Coordinate } from "./coordinate";
 import { Vector } from "./vector";
 
 export class Point implements IPoint {
@@ -30,5 +31,9 @@ export class Point implements IPoint {
 
   copy(): Point {
     return new Point(this.X, this.Y);
+  }
+
+  toCoordinates() {
+    return new Coordinate(this);
   }
 }

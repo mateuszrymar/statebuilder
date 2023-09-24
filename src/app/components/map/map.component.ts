@@ -6,6 +6,7 @@ import { Line } from '../../math/line';
 import { Vector } from '../../math/vector';
 import { TileService } from '../../services/tile.service';
 import { MapService } from '../../services/map.service';
+import { Coordinate } from 'src/app/math/coordinate';
 
 @Component({
   selector: 'app-map',
@@ -38,7 +39,7 @@ export class MapComponent implements OnInit {
   tileSizePx = `${this.tileSize}px`;
   xTilePositionPx = `0px`;
   yTilePositionPx = `0px`;
-  tilePosition = Point.zero();
+  tilePosition = Coordinate.zero();
   isTileClicked = false;
   isTileClicked$ = this._tileService.getIsTileClicked().subscribe(value => this.isTileClicked = value);
 
@@ -106,6 +107,6 @@ export class MapComponent implements OnInit {
     let unitPositionX = Math.floor((1 - intersectionDomain.X) * this.mapSize / this.tileSize)
     let unitPositionY = Math.floor(intersectionDomain.Y * this.mapSize / this.tileSize)
 
-    this.tilePosition = new Point(unitPositionX, unitPositionY);
+    this.tilePosition = new Coordinate(new Point(unitPositionX, unitPositionY));
   }
 }
