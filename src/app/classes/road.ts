@@ -35,9 +35,9 @@ export class Road implements IRoad {
 
     let midpoint = Coordinate.zero();
 
-    this.calcWaypoints(this._startSettlement.coordinates, this._endSettlement.coordinates, 5);
+    
 
-    let waypoints: Coordinate[] = [Coordinate.zero()];
+    let waypoints = this.calcWaypoints(this._startSettlement.coordinates, this._endSettlement.coordinates, 1);
 
     midpoint = new Coordinate(new Point(
       startX, endY
@@ -57,46 +57,61 @@ export class Road implements IRoad {
 
     let waypoints: Coordinate[] = [];
     let startTrailEnd = _.cloneDeep(start);
+    let startTrailWaypoints: Coordinate[] = [];
     let endTrailEnd = _.cloneDeep(end);
+    let endTrailWaypoints: Coordinate[] = [];
     let trailEndVec = Vector.fromPoints(startTrailEnd, endTrailEnd);
-    let searchVecLength = Math.min(maxSegmentLength, Math.floor(distance/3), diffX, diffY);
+    distance = trailEndVec.length();
+    let searchVecLength = Math.max(Math.min(maxSegmentLength, Math.floor(distance/3), diffX, diffY), 1);
 
-    // while(trailEndVec.length() >= 1) {
-    // }
-    console.log("searchveclength",searchVecLength);
-    let searchVec1 = Vector.fromNumbers(startEndVec.X, 0).setMagnitude(searchVecLength);
-    let searchVec2 = Vector.fromNumbers(0, startEndVec.Y).setMagnitude(searchVecLength);
-    let searchVec3 = Vector.fromNumbers(searchVec1.X, searchVec2.Y);
-    let closestSearchVec = [searchVec1, searchVec2, searchVec3]
-      .sort((a:Vector, b:Vector) => 
-      _.cloneDeep(startTrailEnd).move(a).distanceTo(endTrailEnd) -
-      _.cloneDeep(startTrailEnd).move(b).distanceTo(endTrailEnd))[0];
+    while(distance > 3) {
+      console.log("searchveclength",searchVecLength);
+      let searchVec1 = Vector.fromNumbers(trailEndVec.X, 0).setMagnitude(searchVecLength);
+      let searchVec2 = Vector.fromNumbers(0, trailEndVec.Y).setMagnitude(searchVecLength);
+      let searchVec3 = Vector.fromNumbers(searchVec1.X, searchVec2.Y);
+      let closestSearchVec = [searchVec1, searchVec2, searchVec3]
+        .sort((a:Vector, b:Vector) => 
+        _.cloneDeep(startTrailEnd).move(a).distanceTo(endTrailEnd) -
+        _.cloneDeep(startTrailEnd).move(b).distanceTo(endTrailEnd))[0];
+      console.log("searchvecs",[searchVec1, searchVec2, searchVec3]);
 
-    startTrailEnd.move(closestSearchVec);
-    trailEndVec = Vector.fromPoints(startTrailEnd, endTrailEnd);
-    distance = Vector.fromPoints(startTrailEnd, endTrailEnd).length();
-    searchVecLength = Math.min(maxSegmentLength, Math.floor(distance/3), diffX, diffY);
+  
+      startTrailEnd.move(closestSearchVec);
+      console.log(startTrailEnd);
+      startTrailWaypoints.push(Coordinate.fromPoint(startTrailEnd));
+      trailEndVec = Vector.fromPoints(startTrailEnd, endTrailEnd);
+      console.log(trailEndVec);
 
-    // @TODO: this goes from the other end:
-    console.log("searchveclength",searchVecLength);
-    searchVec1 = Vector.fromNumbers(startEndVec.X, 0).setMagnitude(searchVecLength);
-    searchVec2 = Vector.fromNumbers(0, startEndVec.Y).setMagnitude(searchVecLength);
-    searchVec3 = Vector.fromNumbers(searchVec1.X, searchVec2.Y);
-    closestSearchVec = [searchVec1, searchVec2, searchVec3]
-      .sort((a:Vector, b:Vector) => 
-      _.cloneDeep(startTrailEnd).move(a).distanceTo(endTrailEnd) -
-      _.cloneDeep(startTrailEnd).move(b).distanceTo(endTrailEnd))[0];
-
-    startTrailEnd.move(closestSearchVec);
-    trailEndVec = Vector.fromPoints(startTrailEnd, endTrailEnd);
-    distance = Vector.fromPoints(startTrailEnd, endTrailEnd).length();
-    searchVecLength = Math.min(maxSegmentLength, Math.floor(distance/3), diffX, diffY);
-      
-    console.log(distance);
-
-
+      distance = trailEndVec.length();
+      if (distance < 3) break;
+      searchVecLength = Math.max(Math.min(maxSegmentLength, Math.floor(distance/3), diffX, diffY), 1);
+  
+      if (distance < 3) break;
+      // @TODO: this goes from the other end:
+      console.log("searchveclength",searchVecLength);
+      searchVec1 = Vector.fromNumbers(-trailEndVec.X, 0).setMagnitude(searchVecLength);
+      searchVec2 = Vector.fromNumbers(0, -trailEndVec.Y).setMagnitude(searchVecLength);
+      searchVec3 = Vector.fromNumbers(-searchVec1.X, -searchVec2.Y);
+      closestSearchVec = [searchVec1, searchVec2, searchVec3]
+        .sort((a:Vector, b:Vector) => 
+        _.cloneDeep(endTrailEnd).move(a).distanceTo(startTrailEnd) -
+        _.cloneDeep(endTrailEnd).move(b).distanceTo(startTrailEnd))[0];
+      console.log("searchvecs",[searchVec1, searchVec2, searchVec3]);
+  
+      endTrailEnd.move(closestSearchVec);
+      console.log(endTrailEnd);
+      console.log(closestSearchVec);
+      endTrailWaypoints.push(Coordinate.fromPoint(endTrailEnd));
+      trailEndVec = Vector.fromPoints(startTrailEnd, endTrailEnd);
+      console.log(trailEndVec);
+      distance = Vector.fromPoints(startTrailEnd, endTrailEnd).length();
+      if (distance < 3) break;
+      searchVecLength = Math.max(Math.min(maxSegmentLength, Math.floor(distance/3), diffX, diffY), 1);
+        
+  
+    }
     
-    return [];
+    return [...startTrailWaypoints, ...endTrailWaypoints.reverse()];
   }
 
 

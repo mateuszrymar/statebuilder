@@ -19,6 +19,11 @@ export class Coordinate implements IPoint {
     return new Coordinate(new Point(vec.X + startPt.X, vec.Y + startPt.Y));
   }
 
+  public static fromPoint(pt: Coordinate) {
+    return new Coordinate(new Point(pt.X, pt.Y));
+  }
+
+
   public toPx() {
     return `${this.X},${this.Y}`
   }
